@@ -1,0 +1,12 @@
+{
+  "name": "openaudible-mcp",
+  "description": "OpenAudible audiobook tools for Claude Code",
+  "owner": { "name": "Eugene Archibald" },
+  "plugins": [
+    {
+      "name": "openaudible",
+      "source": "./",
+      "description": "Search an OpenAudible audiobook library and fetch M4B, MP3 or Yoto-ready audio from its web server."
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "name": "openaudible",
+  "version": "0.2.0",
+  "description": "Search an OpenAudible audiobook library and fetch M4B, MP3 or Yoto-ready audio from its web server.",
+  "author": { "name": "Eugene Archibald" },
+  "keywords": ["audiobooks", "openaudible", "audible", "mp3", "m4b", "yoto"],
+  "userConfig": {
+    "url": {
+      "type": "string",
+      "title": "OpenAudible URL",
+      "description": "Address of the OpenAudible web server (File > Preferences > Web Server), e.g. http://my-mac.local:8000",
+      "required": true,
+      "default": "http://localhost:8000"
+    },
+    "username": {
+      "type": "string",
+      "title": "Username",
+      "description": "Web server user. An Admin account can also prepare books and run commands. Leave empty if the server has no login."
+    },
+    "password": {
+      "type": "string",
+      "title": "Password",
+      "description": "Password for that user. Kept in your system keychain.",
+      "sensitive": true
+    },
+    "download_dir": {
+      "type": "directory",
+      "title": "Download folder",
+      "description": "Where audio is saved. Empty means ~/Downloads/OpenAudible."
+    },
+    "mp3_bitrate": {
+      "type": "string",
+      "title": "MP3 bitrate",
+      "description": "Bitrate for MP3s made on this computer, and the highest used for Yoto tracks.",
+      "options": ["64k", "96k", "128k", "192k"],
+      "default": "96k"
+    }
+  },
+  "mcpServers": {
+    "openaudible": {
+      "command": "uv",
+      "args": ["run", "--quiet", "--frozen", "--directory", "${CLAUDE_PLUGIN_ROOT}", "openaudible-mcp"],
+      "env": {
+        "UV_PROJECT_ENVIRONMENT": "${CLAUDE_PLUGIN_DATA}/venv",
+        "OPENAUDIBLE_URL": "${user_config.url}",
+        "OPENAUDIBLE_USERNAME": "${user_config.username}",
+        "OPENAUDIBLE_PASSWORD": "${user_config.password}",
+        "OPENAUDIBLE_DOWNLOAD_DIR": "${user_config.download_dir}",
+        "OPENAUDIBLE_MP3_BITRATE": "${user_config.mp3_bitrate}"
+      }
+    }
+  }
+}

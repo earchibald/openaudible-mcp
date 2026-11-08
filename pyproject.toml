@@ -1,0 +1,36 @@
+[project]
+name = "openaudible-mcp"
+version = "0.2.0"
+description = "MCP server for a personal OpenAudible audiobook library: search, inspect, and fetch MP3/M4B audio"
+readme = "README.md"
+authors = [
+    { name = "Eugene Archibald", email = "eugene.archibald+gh@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "httpx>=0.28.1",
+    "mcp>=2.3",
+]
+
+[project.scripts]
+openaudible-mcp = "openaudible_mcp.server:main"
+
+[build-system]
+requires = ["uv_build>=0.13.6,<0.14.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "pytest-asyncio>=1.4.1.post1",
+    "respx>=0.23.1",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
